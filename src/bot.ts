@@ -485,6 +485,44 @@ export function parseFeishuMessageEvent(
   return ctx;
 }
 
+/**
+ * Fetch and enrich message context with quoted message content.
+ * If the message is a reply (has root_id), fetches the original message content.
+ */
+export async function enrichMessageContextWithQuotedContent(params: {
+  cfg: ClawdbotConfig;
+  ctx: FeishuMessageContext;
+  log?: (...args: any[]) => void;
+}): Promise<FeishuMessageContext> {
+  const { cfg, ctx, log } = params;
+
+  // Only process if this is a reply message with root_id
+  if (!ctx.rootId) {
+    return ctx;
+  }
+
+  try {
+    const quotedMessage = await getMessageFeishu({
+      cfg,
+      messageId: ctx.rootId,
+    });
+
+    if (quotedMessage) {
+      log?.(`feishu: fetched quoted message content (${quotedMessage.contentType}: ${quotedMessage.content?.slice(0, 100)}...)`);
+      return {
+        ...ctx,
+        quotedMessageContent: quotedMessage.content,
+        quotedMessageSenderId: quotedMessage.senderId,
+        quotedMessageType: quotedMessage.contentType,
+      };
+    }
+  } catch (err) {
+    log?.(`feishu: failed to fetch quoted message: ${err}`);
+  }
+
+  return ctx;
+}
+
 export async function handleFeishuMessage(params: {
   cfg: ClawdbotConfig;
   event: FeishuMessageEvent;
@@ -507,6 +545,11 @@ export async function handleFeishuMessage(params: {
     log,
   });
   if (senderResult.name) ctx = { ...ctx, senderName: senderResult.name };
+
+  // Fetch quoted message content if this is a reply
+  if (ctx.rootId) {
+    ctx = await enrichMessageContextWithQuotedContent({ cfg, ctx, log });
+  }
 
   // Track permission error to inform agent later (with cooldown to avoid repetition)
   let permissionErrorForAgent: PermissionError | undefined;

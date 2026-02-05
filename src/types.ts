@@ -33,6 +33,12 @@ export type FeishuMessageContext = {
   mentionTargets?: MentionTarget[];
   /** Extracted message body (after removing @ placeholders) */
   mentionMessageBody?: string;
+  /** Content of the quoted/replied message (if this message is a reply) */
+  quotedMessageContent?: string;
+  /** ID of the user who sent the quoted message */
+  quotedMessageSenderId?: string;
+  /** Type of the quoted message */
+  quotedMessageType?: string;
 };
 
 export type FeishuSendResult = {
@@ -60,4 +66,5 @@ export type FeishuToolsConfig = {
   drive?: boolean;
   perm?: boolean;
   scopes?: boolean;
+  media?: boolean;
 };

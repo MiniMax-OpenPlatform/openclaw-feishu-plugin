@@ -1,4 +1,8 @@
-# clawd-feishu
+# clawd-feishu 改进版飞书插件
+> ❗️声明：本仓库基于[m1heng开发的飞书插件](https://github.com/m1heng/clawdbot-feishu)进行改进，仅供学习参考。
+在其基础上，修复了配置问题，主要添加了读取飞书对话中**引用消息**的功能，以及**文件上传下载**功能。
+
+---
 
 Feishu/Lark (飞书) channel plugin for [OpenClaw](https://github.com/openclaw/openclaw).
 
