@@ -16,6 +16,46 @@ export type MonitorFeishuOpts = {
 let currentWsClient: Lark.WSClient | null = null;
 let botOpenId: string | undefined;
 
+// --- Message deduplication ---
+// Track recently processed message IDs to prevent duplicate replies on WebSocket reconnection.
+// Feishu may re-deliver messages after reconnection, so we skip already-handled ones.
+const DEDUP_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const DEDUP_CLEANUP_INTERVAL_MS = 60 * 1000; // cleanup every 1 minute
+const processedMessageIds = new Map<string, number>(); // messageId -> timestamp
+
+function isDuplicateMessage(messageId: string): boolean {
+  const now = Date.now();
+  if (processedMessageIds.has(messageId)) {
+    return true;
+  }
+  processedMessageIds.set(messageId, now);
+  return false;
+}
+
+function cleanupProcessedMessages(): void {
+  const now = Date.now();
+  for (const [id, ts] of processedMessageIds) {
+    if (now - ts > DEDUP_TTL_MS) {
+      processedMessageIds.delete(id);
+    }
+  }
+}
+
+// Periodic cleanup to prevent memory leak
+let dedupCleanupTimer: ReturnType<typeof setInterval> | null = null;
+
+function startDedupCleanup(): void {
+  if (dedupCleanupTimer) return;
+  dedupCleanupTimer = setInterval(cleanupProcessedMessages, DEDUP_CLEANUP_INTERVAL_MS);
+}
+
+function stopDedupCleanup(): void {
+  if (dedupCleanupTimer) {
+    clearInterval(dedupCleanupTimer);
+    dedupCleanupTimer = null;
+  }
+}
+
 async function fetchBotOpenId(cfg: FeishuConfig): Promise<string | undefined> {
   try {
     const result = await probeFeishu(cfg);
@@ -73,10 +113,20 @@ async function monitorWebSocket(params: {
 
   const eventDispatcher = createEventDispatcher(feishuCfg);
 
+  startDedupCleanup();
+
   eventDispatcher.register({
     "im.message.receive_v1": async (data) => {
       try {
         const event = data as unknown as FeishuMessageEvent;
+        const messageId = event?.message?.message_id;
+
+        // Deduplication: skip if this message was already processed (e.g. after WebSocket reconnection)
+        if (messageId && isDuplicateMessage(messageId)) {
+          log(`feishu: skipping duplicate message ${messageId}`);
+          return;
+        }
+
         await handleFeishuMessage({
           cfg,
           event,
@@ -114,6 +164,7 @@ async function monitorWebSocket(params: {
       if (currentWsClient === wsClient) {
         currentWsClient = null;
       }
+      stopDedupCleanup();
     };
 
     const handleAbort = () => {

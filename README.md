@@ -220,18 +220,6 @@ Send `/new` command in the chat.
 
 Feishu API has rate limits. Streaming updates can easily trigger throttling. We use complete-then-send approach for stability.
 
-#### Windows install error `spawn npm ENOENT`
-
-If `openclaw plugins install` fails, install manually:
-
-```bash
-# 1. Download the package
-curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.8.tgz
-
-# 2. Install from local file
-openclaw plugins install ./feishu-new-0.1.8.tgz
-```
-
 #### Cannot find the bot in Feishu
 
 1. Ensure the app is published (at least to test version)
@@ -448,17 +436,6 @@ channels:
 
 飞书 API 有请求频率限制，流式更新消息很容易触发限流。当前采用完整回复后一次性发送的方式，以保证稳定性。
 
-#### Windows 安装报错 `spawn npm ENOENT`
-
-如果 `openclaw plugins install` 失败，可以手动安装：
-
-```bash
-# 1. 下载插件包
-curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.8.tgz
-
-# 2. 从本地安装
-openclaw plugins install ./feishu-new-0.1.8.tgz
-```
 
 #### 在飞书里找不到机器人
 
