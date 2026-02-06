@@ -17,13 +17,13 @@ Feishu/Lark (飞书) channel plugin for [OpenClaw](https://github.com/openclaw/o
 ### Installation
 
 ```bash
-openclaw plugins install @m1heng-clawd/feishu
+openclaw plugins install @bluecoconut/feishu-new
 ```
 
 ### Upgrade
 
 ```bash
-openclaw plugins update feishu
+openclaw plugins update feishu-new
 ```
 
 ### Configuration
@@ -132,16 +132,16 @@ In the Feishu Open Platform console, go to **Events & Callbacks**:
 3. Ensure the event permissions are approved
 
 ```bash
-openclaw config set channels.feishu.appId "cli_xxxxx"
-openclaw config set channels.feishu.appSecret "your_app_secret"
-openclaw config set channels.feishu.enabled true
+openclaw config set channels.feishu-new.appId "cli_xxxxx"
+openclaw config set channels.feishu-new.appSecret "your_app_secret"
+openclaw config set channels.feishu-new.enabled true
 ```
 
 ### Configuration Options
 
 ```yaml
 channels:
-  feishu:
+  feishu-new:
     enabled: true
     appId: "cli_xxxxx"
     appSecret: "secret"
@@ -226,10 +226,10 @@ If `openclaw plugins install` fails, install manually:
 
 ```bash
 # 1. Download the package
-curl -O https://registry.npmjs.org/@m1heng-clawd/feishu/-/feishu-0.1.3.tgz
+curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.7.tgz
 
 # 2. Install from local file
-openclaw plugins install ./feishu-0.1.3.tgz
+openclaw plugins install ./feishu-new-0.1.7.tgz
 ```
 
 #### Cannot find the bot in Feishu
@@ -245,13 +245,13 @@ openclaw plugins install ./feishu-0.1.3.tgz
 ### 安装
 
 ```bash
-openclaw plugins install @m1heng-clawd/feishu
+openclaw plugins install @bluecoconut/feishu-new
 ```
 
 ### 升级
 
 ```bash
-openclaw plugins update feishu
+openclaw plugins update feishu-new
 ```
 
 ### 配置
@@ -360,16 +360,16 @@ openclaw plugins update feishu
 3. 确保事件订阅的权限已申请并通过审核
 
 ```bash
-openclaw config set channels.feishu.appId "cli_xxxxx"
-openclaw config set channels.feishu.appSecret "your_app_secret"
-openclaw config set channels.feishu.enabled true
+openclaw config set channels.feishu-new.appId "cli_xxxxx"
+openclaw config set channels.feishu-new.appSecret "your_app_secret"
+openclaw config set channels.feishu-new.enabled true
 ```
 
 ### 配置选项
 
 ```yaml
 channels:
-  feishu:
+  feishu-new:
     enabled: true
     appId: "cli_xxxxx"
     appSecret: "secret"
@@ -454,10 +454,10 @@ channels:
 
 ```bash
 # 1. 下载插件包
-curl -O https://registry.npmjs.org/@m1heng-clawd/feishu/-/feishu-0.1.3.tgz
+curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.7.tgz
 
 # 2. 从本地安装
-openclaw plugins install ./feishu-0.1.3.tgz
+openclaw plugins install ./feishu-new-0.1.7.tgz
 ```
 
 #### 在飞书里找不到机器人
