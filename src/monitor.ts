@@ -31,7 +31,7 @@ export async function monitorFeishuProvider(opts: MonitorFeishuOpts = {}): Promi
     throw new Error("Config is required for Feishu monitor");
   }
 
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   const creds = resolveFeishuCredentials(feishuCfg);
   if (!creds) {
     throw new Error("Feishu credentials not configured (appId, appSecret required)");

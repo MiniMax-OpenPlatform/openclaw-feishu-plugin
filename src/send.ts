@@ -25,7 +25,7 @@ export async function getMessageFeishu(params: {
   messageId: string;
 }): Promise<FeishuMessageInfo | null> {
   const { cfg, messageId } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -121,7 +121,7 @@ function buildFeishuPostMessagePayload(params: { feishuCfg: FeishuConfig; messag
 
 export async function sendMessageFeishu(params: SendFeishuMessageParams): Promise<FeishuSendResult> {
   const { cfg, to, text, replyToMessageId, mentions } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -135,7 +135,7 @@ export async function sendMessageFeishu(params: SendFeishuMessageParams): Promis
   const receiveIdType = resolveReceiveIdType(receiveId);
   const tableMode = getFeishuRuntime().channel.text.resolveMarkdownTableMode({
     cfg,
-    channel: "feishu",
+    channel: "feishu-new",
   });
 
   // Build message content (with @mention support)
@@ -197,7 +197,7 @@ export type SendFeishuCardParams = {
 
 export async function sendCardFeishu(params: SendFeishuCardParams): Promise<FeishuSendResult> {
   const { cfg, to, card, replyToMessageId } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -255,7 +255,7 @@ export async function updateCardFeishu(params: {
   card: Record<string, unknown>;
 }): Promise<void> {
   const { cfg, messageId, card } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -323,7 +323,7 @@ export async function editMessageFeishu(params: {
   text: string;
 }): Promise<void> {
   const { cfg, messageId, text } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -331,7 +331,7 @@ export async function editMessageFeishu(params: {
   const client = createFeishuClient(feishuCfg);
   const tableMode = getFeishuRuntime().channel.text.resolveMarkdownTableMode({
     cfg,
-    channel: "feishu",
+    channel: "feishu-new",
   });
   const messageText = getFeishuRuntime().channel.text.convertMarkdownTables(text ?? "", tableMode);
 

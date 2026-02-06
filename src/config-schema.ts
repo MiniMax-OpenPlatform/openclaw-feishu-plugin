@@ -123,7 +123,7 @@ export const FeishuConfigSchema = z
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ["allowFrom"],
-          message: 'channels.feishu.dmPolicy="open" requires channels.feishu.allowFrom to include "*"',
+          message: 'channels.feishu-new.dmPolicy="open" requires channels.feishu-new.allowFrom to include "*"',
         });
       }
     }

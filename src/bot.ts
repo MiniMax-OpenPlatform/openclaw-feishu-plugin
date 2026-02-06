@@ -531,7 +531,7 @@ export async function handleFeishuMessage(params: {
   chatHistories?: Map<string, HistoryEntry[]>;
 }): Promise<void> {
   const { cfg, event, botOpenId, runtime, chatHistories } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   const log = runtime?.log ?? console.log;
   const error = runtime?.error ?? console.error;
 
@@ -659,7 +659,7 @@ export async function handleFeishuMessage(params: {
 
     const route = core.channel.routing.resolveAgentRoute({
       cfg,
-      channel: "feishu",
+      channel: "feishu-new",
       peer: {
         kind: isGroup ? "group" : "dm",
         id: isGroup ? ctx.chatId : ctx.senderOpenId,
@@ -748,13 +748,13 @@ export async function handleFeishuMessage(params: {
         GroupSubject: isGroup ? ctx.chatId : undefined,
         SenderName: "system",
         SenderId: "system",
-        Provider: "feishu" as const,
-        Surface: "feishu" as const,
+        Provider: "feishu-new" as const,
+        Surface: "feishu-new" as const,
         MessageSid: `${ctx.messageId}:permission-error`,
         Timestamp: Date.now(),
         WasMentioned: false,
         CommandAuthorized: true,
-        OriginatingChannel: "feishu" as const,
+        OriginatingChannel: "feishu-new" as const,
         OriginatingTo: feishuTo,
       });
 
@@ -820,13 +820,13 @@ export async function handleFeishuMessage(params: {
       GroupSubject: isGroup ? ctx.chatId : undefined,
       SenderName: ctx.senderName ?? ctx.senderOpenId,
       SenderId: ctx.senderOpenId,
-      Provider: "feishu" as const,
-      Surface: "feishu" as const,
+      Provider: "feishu-new" as const,
+      Surface: "feishu-new" as const,
       MessageSid: ctx.messageId,
       Timestamp: Date.now(),
       WasMentioned: ctx.mentionedBot,
       CommandAuthorized: true,
-      OriginatingChannel: "feishu" as const,
+      OriginatingChannel: "feishu-new" as const,
       OriginatingTo: feishuTo,
       ...mediaPayload,
     });

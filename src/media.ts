@@ -27,7 +27,7 @@ export async function downloadImageFeishu(params: {
   imageKey: string;
 }): Promise<DownloadImageResult> {
   const { cfg, imageKey } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -105,7 +105,7 @@ export async function downloadMessageResourceFeishu(params: {
   type: "image" | "file";
 }): Promise<DownloadMessageResourceResult> {
   const { cfg, messageId, fileKey, type } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -198,7 +198,7 @@ export async function uploadImageFeishu(params: {
   imageType?: "message" | "avatar";
 }): Promise<UploadImageResult> {
   const { cfg, image, imageType = "message" } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -244,7 +244,7 @@ export async function uploadFileFeishu(params: {
   duration?: number; // Required for audio/video files, in milliseconds
 }): Promise<UploadFileResult> {
   const { cfg, file, fileName, fileType, duration } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -289,7 +289,7 @@ export async function sendImageFeishu(params: {
   replyToMessageId?: string;
 }): Promise<SendMediaResult> {
   const { cfg, to, imageKey, replyToMessageId } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -351,7 +351,7 @@ export async function sendFileFeishu(params: {
   replyToMessageId?: string;
 }): Promise<SendMediaResult> {
   const { cfg, to, fileKey, replyToMessageId } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }

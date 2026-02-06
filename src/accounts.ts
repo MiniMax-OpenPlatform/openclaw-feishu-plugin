@@ -25,7 +25,7 @@ export function resolveFeishuAccount(params: {
   cfg: ClawdbotConfig;
   accountId?: string | null;
 }): ResolvedFeishuAccount {
-  const feishuCfg = params.cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (params.cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   const enabled = feishuCfg?.enabled !== false;
   const creds = resolveFeishuCredentials(feishuCfg);
 

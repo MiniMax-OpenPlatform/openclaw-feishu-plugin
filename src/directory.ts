@@ -20,7 +20,7 @@ export async function listFeishuDirectoryPeers(params: {
   query?: string;
   limit?: number;
 }): Promise<FeishuDirectoryPeer[]> {
-  const feishuCfg = params.cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (params.cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   const q = params.query?.trim().toLowerCase() || "";
   const ids = new Set<string>();
 
@@ -48,7 +48,7 @@ export async function listFeishuDirectoryGroups(params: {
   query?: string;
   limit?: number;
 }): Promise<FeishuDirectoryGroup[]> {
-  const feishuCfg = params.cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (params.cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   const q = params.query?.trim().toLowerCase() || "";
   const ids = new Set<string>();
 
@@ -75,7 +75,7 @@ export async function listFeishuDirectoryPeersLive(params: {
   query?: string;
   limit?: number;
 }): Promise<FeishuDirectoryPeer[]> {
-  const feishuCfg = params.cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (params.cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg?.appId || !feishuCfg?.appSecret) {
     return listFeishuDirectoryPeers(params);
   }
@@ -119,7 +119,7 @@ export async function listFeishuDirectoryGroupsLive(params: {
   query?: string;
   limit?: number;
 }): Promise<FeishuDirectoryGroup[]> {
-  const feishuCfg = params.cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (params.cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg?.appId || !feishuCfg?.appSecret) {
     return listFeishuDirectoryGroups(params);
   }

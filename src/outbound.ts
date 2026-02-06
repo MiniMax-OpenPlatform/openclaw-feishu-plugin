@@ -10,7 +10,7 @@ export const feishuOutbound: ChannelOutboundAdapter = {
   textChunkLimit: 4000,
   sendText: async ({ cfg, to, text }) => {
     const result = await sendMessageFeishu({ cfg, to, text });
-    return { channel: "feishu", ...result };
+    return { channel: "feishu-new", ...result };
   },
   sendMedia: async ({ cfg, to, text, mediaUrl }) => {
     // Send text first if provided
@@ -22,19 +22,19 @@ export const feishuOutbound: ChannelOutboundAdapter = {
     if (mediaUrl) {
       try {
         const result = await sendMediaFeishu({ cfg, to, mediaUrl });
-        return { channel: "feishu", ...result };
+        return { channel: "feishu-new", ...result };
       } catch (err) {
         // Log the error for debugging
         console.error(`[feishu] sendMediaFeishu failed:`, err);
         // Fallback to URL link if upload fails
         const fallbackText = `📎 ${mediaUrl}`;
         const result = await sendMessageFeishu({ cfg, to, text: fallbackText });
-        return { channel: "feishu", ...result };
+        return { channel: "feishu-new", ...result };
       }
     }
 
     // No media URL, just return text result
     const result = await sendMessageFeishu({ cfg, to, text: text ?? "" });
-    return { channel: "feishu", ...result };
+    return { channel: "feishu-new", ...result };
   },
 };

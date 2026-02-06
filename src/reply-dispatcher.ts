@@ -66,7 +66,7 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
     onStartError: (err) => {
       logTypingFailure({
         log: (message) => params.runtime.log?.(message),
-        channel: "feishu",
+        channel: "feishu-new",
         action: "start",
         error: err,
       });
@@ -74,7 +74,7 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
     onStopError: (err) => {
       logTypingFailure({
         log: (message) => params.runtime.log?.(message),
-        channel: "feishu",
+        channel: "feishu-new",
         action: "stop",
         error: err,
       });
@@ -83,13 +83,13 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
 
   const textChunkLimit = core.channel.text.resolveTextChunkLimit({
     cfg,
-    channel: "feishu",
+    channel: "feishu-new",
     defaultLimit: 4000,
   });
-  const chunkMode = core.channel.text.resolveChunkMode(cfg, "feishu");
+  const chunkMode = core.channel.text.resolveChunkMode(cfg, "feishu-new");
   const tableMode = core.channel.text.resolveMarkdownTableMode({
     cfg,
-    channel: "feishu",
+    channel: "feishu-new",
   });
 
   const { dispatcher, replyOptions, markDispatchIdle } =
@@ -107,7 +107,7 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
         }
 
         // Check render mode: auto (default), raw, or card
-        const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+        const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
         const renderMode = feishuCfg?.renderMode ?? "auto";
 
         // Determine if we should use card for this message

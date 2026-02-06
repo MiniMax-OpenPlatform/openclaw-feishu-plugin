@@ -202,7 +202,7 @@ async function doFeishuSendFile(
 // ============ Tool Registration ============
 
 export function registerFeishuMediaTools(api: OpenClawPluginApi) {
-  const feishuCfg = api.config?.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (api.config?.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg?.appId || !feishuCfg?.appSecret) {
     api.logger.debug?.("feishu_media: Feishu credentials not configured, skipping media tools");
     return;

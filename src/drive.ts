@@ -150,7 +150,7 @@ async function deleteFile(client: Lark.Client, fileToken: string, type: string) 
 // ============ Tool Registration ============
 
 export function registerFeishuDriveTools(api: OpenClawPluginApi) {
-  const feishuCfg = api.config?.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (api.config?.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg?.appId || !feishuCfg?.appSecret) {
     api.logger.debug?.("feishu_drive: Feishu credentials not configured, skipping drive tools");
     return;

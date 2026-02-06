@@ -150,7 +150,7 @@ async function renameNode(
 // ============ Tool Registration ============
 
 export function registerFeishuWikiTools(api: OpenClawPluginApi) {
-  const feishuCfg = api.config?.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (api.config?.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg?.appId || !feishuCfg?.appSecret) {
     api.logger.debug?.("feishu_wiki: Feishu credentials not configured, skipping wiki tools");
     return;

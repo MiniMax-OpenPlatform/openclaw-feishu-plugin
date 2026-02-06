@@ -20,7 +20,7 @@ export async function addReactionFeishu(params: {
   emojiType: string;
 }): Promise<{ reactionId: string }> {
   const { cfg, messageId, emojiType } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -61,7 +61,7 @@ export async function removeReactionFeishu(params: {
   reactionId: string;
 }): Promise<void> {
   const { cfg, messageId, reactionId } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }
@@ -89,7 +89,7 @@ export async function listReactionsFeishu(params: {
   emojiType?: string;
 }): Promise<FeishuReaction[]> {
   const { cfg, messageId, emojiType } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     throw new Error("Feishu channel not configured");
   }

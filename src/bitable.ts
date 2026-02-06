@@ -290,7 +290,7 @@ const UpdateRecordSchema = Type.Object({
 // ============ Tool Registration ============
 
 export function registerFeishuBitableTools(api: OpenClawPluginApi) {
-  const feishuCfg = api.config?.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (api.config?.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg?.appId || !feishuCfg?.appSecret) {
     api.logger.debug?.("feishu_bitable: Feishu credentials not configured, skipping bitable tools");
     return;

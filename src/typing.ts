@@ -20,7 +20,7 @@ export async function addTypingIndicator(params: {
   messageId: string;
 }): Promise<TypingIndicatorState> {
   const { cfg, messageId } = params;
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) {
     return { messageId, reactionId: null };
   }
@@ -54,7 +54,7 @@ export async function removeTypingIndicator(params: {
   const { cfg, state } = params;
   if (!state.reactionId) return;
 
-  const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+  const feishuCfg = (cfg.channels as Record<string, any>)?.["feishu-new"] as FeishuConfig | undefined;
   if (!feishuCfg) return;
 
   const client = createFeishuClient(feishuCfg);

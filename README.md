@@ -6,7 +6,7 @@
 
 Feishu/Lark (飞书) channel plugin for [OpenClaw](https://github.com/openclaw/openclaw).
 
-> **中文社区资料** - 配置教程、常见问题、使用技巧：[Wiki](https://github.com/m1heng/clawdbot-feishu/wiki)
+> **中文社区资料** - 配置教程、常见问题、使用技巧：[Wiki](https://github.com/BLUE-coconut/clawdbot-feishu/wiki)
 
 [English](#english) | [中文](#中文)
 
@@ -226,10 +226,10 @@ If `openclaw plugins install` fails, install manually:
 
 ```bash
 # 1. Download the package
-curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.7.tgz
+curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.8.tgz
 
 # 2. Install from local file
-openclaw plugins install ./feishu-new-0.1.7.tgz
+openclaw plugins install ./feishu-new-0.1.8.tgz
 ```
 
 #### Cannot find the bot in Feishu
@@ -454,10 +454,10 @@ channels:
 
 ```bash
 # 1. 下载插件包
-curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.7.tgz
+curl -O https://registry.npmjs.org/@bluecoconut/feishu-new/-/feishu-new-0.1.8.tgz
 
 # 2. 从本地安装
-openclaw plugins install ./feishu-new-0.1.7.tgz
+openclaw plugins install ./feishu-new-0.1.8.tgz
 ```
 
 #### 在飞书里找不到机器人
